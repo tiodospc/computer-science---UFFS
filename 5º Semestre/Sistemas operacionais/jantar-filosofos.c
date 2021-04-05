@@ -19,7 +19,7 @@ pthread_mutex_t garfos[N];
 
 void thinking(int i){
     estados[i] = THIKING;
-    printf("Filosofo %d está pensando...", i);
+    printf("Filosofo %d está pensando...\n", i);
 }
 
 void getForkRight(int i){
@@ -72,18 +72,18 @@ void *outroFilosofo(void *num){
     pthread_exit(NULL);
 };
 
-int main(void){
+int main(void){	
     pthread_t filosofos[N];
-    
+          
     for(int i = 0; i < N; i++){
         pthread_mutex_init(&garfos[i], NULL);
     }
 
     for (int i = 0; i < N; i++){
         if(i == (N -1)){
-          pthread_create(&filosofos[i], NULL, outroFilosofo, (void *) i);
+			pthread_create(&filosofos[i], NULL, outroFilosofo, (void *) &i);
         } else {
-            pthread_create(&filosofos[i], NULL, filosofo, (void *) i);
+            pthread_create(&filosofos[i], NULL, filosofo, (void *) &i);
         }
     }
     
